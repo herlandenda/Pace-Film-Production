@@ -131,6 +131,7 @@
                 </a>
 
                 <div class="hidden lg:flex items-center gap-9 text-sm font-medium">
+                    <a href="#beranda" class="nav-link">Beranda</a>
                     <a href="#portofolio" class="nav-link">Portofolio</a>
                     <a href="#layanan" class="nav-link">Layanan</a>
                     <a href="#tentang" class="nav-link">Tentang</a>
@@ -161,6 +162,7 @@
             </button>
         </div>
         <div class="mt-10 flex flex-col gap-5 text-3xl font-bold tracking-tight">
+            <a href="#beranda" class="mobile-link">Beranda</a>
             <a href="#portofolio" class="mobile-link">Portofolio</a>
             <a href="#layanan" class="mobile-link">Layanan</a>
             <a href="#tentang" class="mobile-link">Tentang</a>
@@ -173,29 +175,53 @@
 
 
     <!-- ================= HERO ================= -->
-    <header id="beranda" class="relative min-h-[100svh] flex items-end overflow-hidden bg-tinta text-white">
-        <!-- Ganti foto ini dengan foto/still asli dari project Pace Film -->
-        <img src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2000&q=80"
-             alt="Kru produksi Pace Film saat syuting"
-             class="hero-img absolute inset-0 w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-t from-tinta/95 via-tinta/60 to-tinta/45"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-tinta/70 via-tinta/20 to-transparent"></div>
+<header id="beranda" class="relative min-h-[100svh] flex items-end overflow-hidden bg-tinta text-white">
+    
+    <!-- Container Slider (4 Foto Crossfade) -->
+    <div class="absolute inset-0 z-0">
+        @php
+            $heroSlides = [
+                file_exists(public_path('images/banner-1.jpg')) ? asset('images/banner-1.jpg') : 'https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=2000&q=80',
+                file_exists(public_path('images/banner-2.jpg')) ? asset('images/banner-2.jpg') : 'https://images.unsplash.com/photo-1579632652768-6cb9dcf85912?auto=format&fit=crop&w=2000&q=80',
+                file_exists(public_path('images/banner-3.jpg')) ? asset('images/banner-3.jpg') : 'https://images.unsplash.com/photo-1518173946687-a4c8a383392e?auto=format&fit=crop&w=2000&q=80',
+                file_exists(public_path('images/banner-4.jpg')) ? asset('images/banner-4.jpg') : 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=2000&q=80',
+            ];
+        @endphp
 
-        <div class="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-8 pb-14 md:pb-20 pt-40">
-            <h1 class="text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold leading-[1.02] max-w-4xl">
-                <span class="rise-wrap"><span class="rise d1">Cerita dari Papua,</span></span>
-                <span class="rise-wrap"><span class="rise d2">digarap dengan standar sinema.</span></span>
-            </h1>
+        @foreach($heroSlides as $index => $slideImg)
+            <img src="{{ $slideImg }}" 
+                 alt="Kru produksi Pace Film {{ $index + 1 }}" 
+                 class="hero-slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}">
+        @endforeach
+    </div>
 
-            <div class="fade-in mt-9 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-                <div class="max-w-md">
-                    <p class="text-base md:text-lg text-white/85 leading-relaxed">
-                        Company profile, iklan, dokumenter, dan music video. Kami kerjakan dari ide sampai file master.
-                    </p>
-                    <div class="mt-7 flex flex-wrap gap-3">
-                        <a href="#portofolio" class="rounded-full bg-emas text-tinta px-7 py-3 text-sm font-bold hover:bg-white transition-colors">Lihat portofolio</a>
-                        <a href="{{ $linkWa }}" target="_blank" rel="noopener" class="rounded-full border border-white/50 px-7 py-3 text-sm font-semibold hover:bg-white hover:text-tinta transition-colors">Hubungi tim produksi</a>
-                    </div>
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-tinta/95 via-tinta/60 to-tinta/45 z-10"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-tinta/70 via-tinta/20 to-transparent z-10"></div>
+
+    <div class="relative z-20 w-full max-w-7xl mx-auto px-5 sm:px-8 pb-14 md:pb-20 pt-40">
+        <h1 class="text-[clamp(2.5rem,6.5vw,5.5rem)] font-extrabold leading-[1.02] max-w-4xl">
+            <span class="rise-wrap"><span class="rise d1">Cerita dari Papua,</span></span>
+            <span class="rise-wrap"><span class="rise d2">digarap dengan standar sinema.</span></span>
+        </h1>
+
+        <div class="fade-in mt-9 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+            <div class="max-w-md">
+                <p class="text-base md:text-lg text-white/85 leading-relaxed">
+                    Company profile, iklan, dokumenter, dan music video. Kami kerjakan dari ide sampai file master.
+                </p>
+                <div class="mt-7 flex flex-wrap gap-3">
+                    <a href="#portofolio" class="rounded-full bg-emas text-tinta px-7 py-3 text-sm font-bold hover:bg-white transition-colors">Lihat portofolio</a>
+                    <a href="{{ $linkWa }}" target="_blank" rel="noopener" class="rounded-full border border-white/50 px-7 py-3 text-sm font-semibold hover:bg-white hover:text-tinta transition-colors">Hubungi tim produksi</a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col md:items-end gap-3">
+                <!-- Indikator Slide 4 Garis Halus -->
+                <div class="flex items-center gap-1.5 mb-1">
+                    @foreach($heroSlides as $i => $s)
+                        <button type="button" onclick="changeHeroSlide({{ $i }})" class="hero-dot h-1 rounded-full transition-all duration-300 {{ $i === 0 ? 'w-8 bg-emas' : 'w-4 bg-white/40' }}" aria-label="Slide {{ $i + 1 }}"></button>
+                    @endforeach
                 </div>
                 <p class="text-sm text-white/70 md:text-right leading-relaxed">
                     Berbasis di Jayapura, Papua<br>
@@ -203,7 +229,8 @@
                 </p>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 
     <!-- ================= PORTOFOLIO ================= -->
@@ -400,58 +427,117 @@
     </section>
 
 
-    <!-- ================= MERCHANDISE ================= -->
-    <section id="merchandise" class="py-24 md:py-32 bg-dasar">
-        <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <!-- ================= STORE / MERCHANDISE SECTION ================= -->
 
-            <div class="mb-14">
-                <h2 class="text-4xl md:text-5xl font-extrabold leading-tight">Pace Film Store</h2>
-                <p class="mt-3 text-abu max-w-md leading-relaxed">Pakaian dan merchandise resmi Pace Film Production.</p>
-            </div>
+    <!-- ================= STORE / MERCHANDISE SECTION ================= -->
+<section id="merchandise" class="py-20 md:py-28 bg-salju border-b border-garis">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8">
+        
+        <!-- Header Section -->
+        <div class="max-w-2xl mb-12">
+            <p class="text-xs font-bold tracking-[0.2em] text-emastua uppercase">Official Apparel</p>
+            <h2 class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold text-tinta">Pace Film Store</h2>
+            <p class="mt-3 text-abu leading-relaxed">Pakaian dan merchandise resmi Pace Film Production.</p>
+        </div>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12">
-                @foreach ($products as $baju)
-                    @php
-                        $pesanOtomatis = "Halo Pace Film, saya tertarik untuk memesan merchandise: *" . $baju->name . "*. Apakah stoknya masih tersedia?";
-                        $linkWhatsApp = "https://wa.me/" . $waAdmin . "?text=" . urlencode($pesanOtomatis);
-                    @endphp
+        @php
+            $listMerchandise = $merchandises ?? $merchandise ?? collect();
+            $produkReady = collect($listMerchandise)->filter(function($item) {
+                return isset($item->stock) && $item->stock > 0;
+            });
+        @endphp
 
-                    <article class="group flex flex-col">
-                        <div class="relative aspect-square overflow-hidden rounded-md bg-salju">
-                            <img
-                                src="{{ $baju->image ? asset('storage/' . $baju->image) : 'https://via.placeholder.com/500x500/F4F5F7/5A6171?text=Produk' }}"
-                                alt="{{ $baju->name }}"
-                                class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 {{ $baju->stock > 0 ? '' : 'grayscale opacity-60' }}">
-                        </div>
-
-                        <div class="mt-4 flex flex-col flex-grow">
-                            <h3 class="text-base font-bold leading-snug line-clamp-2">{{ $baju->name }}</h3>
-                            <p class="mt-1 text-sm text-abu leading-relaxed line-clamp-2">{{ $baju->description }}</p>
-
-                            <div class="mt-4 flex items-baseline justify-between">
-                                <span class="font-extrabold">Rp {{ number_format($baju->price, 0, ',', '.') }}</span>
-                                <span class="text-xs font-medium {{ $baju->stock > 0 ? 'text-abu' : 'text-rose-600' }}">
-                                    {{ $baju->stock > 0 ? 'Stok ' . $baju->stock : 'Stok habis' }}
-                                </span>
+        @if(count($produkReady) > 0)
+            <!-- TAMPILAN 1: GRID PRODUK (JIKA SUDAH ADA KAOS YANG READY DI DASHBOARD) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($listMerchandise as $item)
+                    @if(isset($item->stock) && $item->stock > 0)
+                        @php
+                            $pesanMerch = "Halo Pace Film, saya ingin memesan merchandise: {$item->name}. Apakah produk masih tersedia?";
+                            $linkMerch = "https://wa.me/6282197562528?text=" . urlencode($pesanMerch);
+                        @endphp
+                        <article class="bg-white rounded-2xl border border-garis overflow-hidden flex flex-col justify-between shadow-sm group">
+                            <div>
+                                <div class="relative aspect-square bg-salju overflow-hidden border-b border-garis">
+                                    <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->name }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                                    <span class="absolute top-3 left-3 bg-tinta/80 text-white text-[10px] font-bold px-2.5 py-1 rounded-full backdrop-blur-md uppercase tracking-wider">
+                                        Stok: {{ $item->stock }}
+                                    </span>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-bold text-xl text-tinta leading-snug">{{ $item->name }}</h3>
+                                    <p class="text-xs text-abu mt-2 leading-relaxed line-clamp-2">{{ $item->description ?? 'Pakaian resmi Pace Film Production.' }}</p>
+                                    <div class="mt-4 pt-4 border-t border-garis flex items-center justify-between">
+                                        <span class="text-lg font-extrabold text-tinta">Rp {{ number_format($item->price, 0, ',', '.') }}</span>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="mt-4">
-                                @if($baju->stock > 0)
-                                    <a href="{{ $linkWhatsApp }}" target="_blank" rel="noopener" class="block text-center rounded-full bg-tinta text-white py-2.5 text-sm font-semibold hover:bg-emas hover:text-tinta transition-colors">
-                                        Pesan via WhatsApp
-                                    </a>
-                                @else
-                                    <span class="block text-center rounded-full bg-garis text-abu py-2.5 text-sm font-medium cursor-not-allowed">Tidak tersedia</span>
-                                @endif
+                            <div class="p-6 pt-0">
+                                <a href="{{ $linkMerch }}" target="_blank" rel="noopener" class="w-full inline-block text-center rounded-xl bg-tinta hover:bg-emas hover:text-tinta text-white font-bold py-3 text-xs uppercase tracking-wider transition duration-300 shadow-sm">
+                                    Pesan via WhatsApp
+                                </a>
                             </div>
-                        </div>
-                    </article>
+                        </article>
+                    @endif
                 @endforeach
             </div>
 
-        </div>
-    </section>
+        @else
+            <!-- TAMPILAN 2: BANNER TEASER SILHOUETTE KAOS (JIKA KAOS BELUM JADI / DOKUMEN BELUM READY) -->
+            <div class="relative bg-tinta border border-tinta/80 rounded-3xl p-8 sm:p-14 text-center shadow-xl overflow-hidden max-w-4xl mx-auto text-white">
+                
+                <!-- Efek Glow Latar Belakang -->
+                <div class="absolute -right-16 -top-16 w-64 h-64 bg-emas/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -left-16 -bottom-16 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
 
+                <div class="relative z-10 max-w-xl mx-auto flex flex-col items-center">
+                    
+                    <!-- Vector Siluet Kaos Sinematik (Menggambarkan Produk Baju) -->
+                    <div class="relative mb-6">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-emas shadow-inner backdrop-blur-sm">
+                            <!-- SVG Siluet Kaos T-Shirt Minimalis -->
+                            <svg class="w-14 h-14 sm:w-16 sm:h-16 stroke-current drop-shadow-md" fill="none" viewBox="0 0 24 24" stroke-width="1.2" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 3.75H15M9 3.75L6.75 6M9 3.75C9 4.99264 10.3431 6 12 6C13.6569 6 15 4.99264 15 3.75M15 3.75L17.25 6M6.75 6L3.75 8.25L5.25 12L7.5 10.5V19.5C7.5 20.0523 7.94772 20.5 8.5 20.5H15.5C16.0523 20.5 16.5 20.0523 16.5 19.5V10.5L18.75 12L20.25 8.25L17.25 6M6.75 6H17.25" />
+                            </svg>
+                        </div>
+                        <span class="absolute -top-2 -right-2 flex h-4 w-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emas opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-emas"></span>
+                        </span>
+                    </div>
+
+                    <!-- Badge Status -->
+                    <span class="inline-block px-4 py-1 rounded-full text-[11px] font-extrabold bg-emas text-tinta uppercase tracking-widest mb-3 shadow-md">
+                        Coming Soon
+                    </span>
+
+                    <h3 class="text-2xl sm:text-4xl font-extrabold tracking-tight">
+                        Official Pace Film T-Shirt
+                    </h3>
+                    
+                    <p class="mt-3 text-white/70 text-sm sm:text-base leading-relaxed">
+                        Koleksi kaos dan merchandise resmi Pace Film Production sedang dalam tahap perancangan desain & sablon. Nantikan jadwal rilis resminya!
+                    </p>
+
+                    <!-- Tombol Kontak Tanya Jadwal -->
+                    <div class="mt-8">
+                        @php
+                            $pesanTanya = "Halo Pace Film, saya ingin bertanya kapan kaos/merchandise resminya mulai bisa dipesan?";
+                            $linkTanya = "https://wa.me/6282197562528?text=" . urlencode($pesanTanya);
+                        @endphp
+                        <a href="{{ $linkTanya }}" target="_blank" rel="noopener" class="inline-flex items-center space-x-2 rounded-full bg-emas text-tinta hover:bg-white font-bold px-7 py-3.5 text-xs uppercase tracking-wider transition duration-300 shadow-lg">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 2c-5.517 0-9.985 4.468-9.985 9.986 0 2.138.673 4.119 1.821 5.74L2 22l4.41-1.808c1.558.985 3.411 1.558 5.401 1.558 5.517 0 9.985-4.468 9.985-9.986 0-5.518-4.468-9.986-9.985-9.986z"/></svg>
+                            <span>Tanyakan Info Rilis via WA</span>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        @endif
+
+    </div>
+</section>
 
    <!-- ================= FOOTER ================= -->
 <footer class="bg-tinta text-white mt-auto">
@@ -488,6 +574,49 @@
             </div>
         </div>
     </div>
+
+    
+<!-- Skrip Slider Beranda (Letakkan di bahagian bawah file home.blade.php atau dalam tag <script>) -->
+<script>
+    let currentSlideIdx = 0;
+    const heroSlides = document.querySelectorAll('.hero-slide-img');
+    const heroDots = document.querySelectorAll('.hero-dot');
+    let slideTimer;
+
+    function changeHeroSlide(index) {
+        heroSlides.forEach((img, i) => {
+            if (i === index) {
+                img.classList.remove('opacity-0', 'z-0');
+                img.classList.add('opacity-100', 'z-10');
+            } else {
+                img.classList.remove('opacity-100', 'z-10');
+                img.classList.add('opacity-0', 'z-0');
+            }
+        });
+
+        heroDots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.remove('w-4', 'bg-white/40');
+                dot.classList.add('w-8', 'bg-emas');
+            } else {
+                dot.classList.remove('w-8', 'bg-emas');
+                dot.classList.add('w-4', 'bg-white/40');
+            }
+        });
+
+        currentSlideIdx = index;
+    }
+
+    function autoNextSlide() {
+        let nextIdx = (currentSlideIdx + 1) % heroSlides.length;
+        changeHeroSlide(nextIdx);
+    }
+
+    if (heroSlides.length > 0) {
+        slideTimer = setInterval(autoNextSlide, 4000); // Bertukar setiap 2 saat
+    }
+</script>
+
 
 
     <!-- ================= JAVASCRIPT ================= -->
@@ -585,6 +714,8 @@
             document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => setMobileMenu(false)));
         }
     </script>
+
+
 
 </body>
 </html>
