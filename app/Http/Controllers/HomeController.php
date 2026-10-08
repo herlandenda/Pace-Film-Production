@@ -13,10 +13,10 @@ class HomeController extends Controller
     {
         // Mengambil 6 video terbaru dan 4 produk terbaru
         $portofolios = Portofolio::latest()->take(3)->get(); //hapuskan ->take(6) jika ingin menampilkan semua video
-        $products = Merchandise::latest()->take(4)->get();
+        $merchandises = Merchandise::latest()->take(4)->get();
 
         // Mengirim data ke file view bernama 'home'
-        return view('home', compact('portofolios', 'products'));
+        return view('home', compact('portofolios', 'merchandises'));
     }
 
     public function legalitas()
